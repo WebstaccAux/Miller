@@ -104,6 +104,15 @@ if (canUseTilt) {
 }
 
 if (form) {
+  const clearFormError = () => {
+    if (formNote?.classList.contains("is-error")) {
+      setNote();
+    }
+  };
+
+  form.addEventListener("input", clearFormError);
+  form.addEventListener("change", clearFormError);
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -125,7 +134,7 @@ if (form) {
       `Notiz: ${data.get("message") || ""}`,
     ].join("\n");
 
-    const mailto = `mailto:?subject=${encodeURIComponent("ARAG Rückrufanfrage")}&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:john.miller@arag-partner.de?subject=${encodeURIComponent("ARAG Rückrufanfrage")}&body=${encodeURIComponent(body)}`;
     setNote("Danke. Die Rückrufanfrage ist vorbereitet.");
     window.location.href = mailto;
   });
@@ -134,13 +143,16 @@ if (form) {
 if (menuToggle && navLinks) {
   menuToggle.addEventListener("click", () => {
     const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", String(!isOpen));
-    navLinks.classList.toggle("is-open", !isOpen);
+    const willOpen = !isOpen;
+    menuToggle.setAttribute("aria-expanded", String(willOpen));
+    menuToggle.setAttribute("aria-label", willOpen ? "Menü schließen" : "Menü öffnen");
+    navLinks.classList.toggle("is-open", willOpen);
   });
 
   navLinks.addEventListener("click", (event) => {
     if (!event.target.closest("a")) return;
     menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Menü öffnen");
     navLinks.classList.remove("is-open");
   });
 }

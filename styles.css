@@ -4617,3 +4617,24 @@ details[open] {
     display: none !important;
   }
 }
+
+.legal-inline-link,
+.consent a {
+  color: var(--forest);
+  font-weight: 850;
+  text-decoration: underline;
+  text-decoration-color: rgba(12, 111, 75, 0.38);
+  text-underline-offset: 0.18em;
+}
+
+.legal-page .legal-inline-link {
+  color: var(--yellow);
+  text-decoration-color: rgba(255, 218, 0, 0.42);
+}
+
+.legal-inline-link:hover,
+.legal-inline-link:focus-visible,
+.consent a:hover,
+.consent a:focus-visible {
+  text-decoration-color: currentColor;
+}
